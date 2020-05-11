@@ -47,9 +47,9 @@ IE 10+ ✔ | Last ✔ | Last ✔ | Last ✔ | Last ✔ |
 ##### CDN installation
 [https://www.jsdelivr.com/package/npm/@vsilva472/jquery-timeline](https://www.jsdelivr.com/package/npm/@vsilva472/jquery-timeline)  
 
-`<script src="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery-timeline.min.css"></script>`
+`<script src="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery.timeline.min.css"></script>`
 
-`<script src="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery-timeline.min.js"></script>`
+`<script src="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery.timeline.min.js"></script>`
 
 
 ## Default options
