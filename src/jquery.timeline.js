@@ -61,9 +61,6 @@
 
         var self = this, data = this.options.transformer(response);
 
-
-        console.log(data);
-
         Object.keys(data).forEach(function (year) {
            self.createYearLabel(year).appendTo(self.options.container);
            
