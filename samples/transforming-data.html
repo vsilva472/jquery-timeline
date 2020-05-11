@@ -15,18 +15,42 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div data-timeline="api.json" style="margin-top: 50px;"></div>
+                <div class="custom-transformer-timeline" style="margin-top: 50px;"></div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>        
+    <script src="../src/jquery.timeline.js"></script>
     <script>
         (function ($) {
-            $('[data-timeline]').on( 'timeline.after.generate', function ( e, data ) {
+            const transforer = (data) => {
+                var transformed = {};
+
+                data.forEach(item => {
+                    if (!transformed[item.year]) transformed[item.year] = [];
+
+                    transformed[item.year].push({
+                        year: item.year,
+                        title: item.caption,
+                        description: item.text || null,
+                        link: item.url || null,
+                        image: item.img || null,
+                    });
+                });
                 
-        } (jQuery));
+                return transformed;
+            };
+
+            $(".custom-transformer-timeline").timeline({
+                container: '.custom-transformer-timeline',
+                apiUrl: 'api-2.json',
+                transformer: transforer
+            });
+            
+            $(".custom-transformer-timeline").on('timeline.after.generate', function () {
+                $(this).addClass('timeline'); 
+            });
+        })(jQuery);
     </script>
-    
-    <script src="../dist/jquery.timeline.min.js"></script>
 </body>
 </html>

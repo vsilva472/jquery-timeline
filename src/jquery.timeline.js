@@ -45,7 +45,6 @@
         var timeline = this, $ajax = $.getJSON(apiUrl, function () {});
 
         $ajax.done(function (response) {
-            timeline.dispatch('timeline.before.generate', { data: response });
             timeline.buildWith(response);
         });
 
@@ -58,9 +57,12 @@
         });
     };
 
-    Plugin.prototype.buildWith = function (data) {
+    Plugin.prototype.buildWith = function (response) {
 
-        var self = this;
+        var self = this, data = this.options.transformer(response);
+
+
+        console.log(data);
 
         Object.keys(data).forEach(function (year) {
            self.createYearLabel(year).appendTo(self.options.container);
@@ -170,7 +172,10 @@
     $.fn.timeline.defaults = {
         container : '[data-timeline]',
         apiUrl: null,
-        allowRawContent: false
+        allowRawContent: false,
+        transformer: function (data) {
+            return data;
+        }
     };
 
     $( document ).ready( function () {

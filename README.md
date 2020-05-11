@@ -15,6 +15,7 @@ A dead simple jQuery plugin to create responsives timelines with only ~3kb.
   - [Via data-attributes](#using-with-default-data-selectors)
   - [Via css classes](#using-with-css-class-selectors)
   - [Mixed Selectors](#using-with-mixed-selctors)
+  - [Using a custom transformer](#using-a-custom-transformer)
 - [Events](#events)
 - [Advanced usage](#advanced-usage)
   - [Display a loading](#display-a-loading)
@@ -56,7 +57,10 @@ IE 10+ ✔ | Last ✔ | Last ✔ | Last ✔ | Last ✔ |
 $.fn.timeline.defaults = {
     container : '[data-timeline]',
     apiUrl: null,
-    allowRawContent: false
+    allowRawContent: false,
+    transformer: function (data) {
+        return data;
+    }
 };
 ```
 
@@ -65,6 +69,7 @@ Attribute | Type | Default | Description
 container | String | `'[data-timeline]'` | The HTML element to render the timeline 
 apiUrl | String | `null` | The url to fetch timeline data
 allowRawContent| bool | `false` | Tell to plugin if it should use .html() or .text() to prevent XSS
+transformer | callback | `function (data) { return data; }` | The transform to transform the data comming from ajax request
 
 
 **Note** You can setup this options via data-attribute from the container element;
@@ -116,6 +121,76 @@ $.fn.timeline.defaults = {
 };
 ```
 
+### Using a custom transformer
+By default jQuery Timeline expect that data received from the ajax request has the following structure:
+```javascript
+{
+    [year: String] : [
+        {
+            title: String
+            image: String | null,
+            description: String | null,
+            link: String | null
+        }
+    ],
+    (...)
+}
+
+Example:
+{
+    "1999" : 
+    [
+        {
+            title: 'Lorem ipsum'
+            image: null
+            description: 'Lorem ipsum dolor sit amet'
+            link: 'http://www.google.com'
+        }
+    ]
+}
+```
+
+But each api has your own logic and return your own format, fortunely jQuery Timeline has a method to transform your data before render the content.
+In this cases you should provide your transform witch will adapt the data to the structure described above. 
+
+In samples folder you can find a sample that describes this scenario.
+
+```html
+<div class="custom-transformer-timeline" style="margin-top: 50px;"></div>
+
+<script>
+(function ($) {
+const transforer = (data) => {
+  var transformed = {};
+
+  data.forEach(item => {
+    if (!transformed[item.year]) transformed[item.year] = [];
+
+    transformed[item.year].push({
+      year: item.year,
+      title: item.caption,
+      description: item.text || null,
+      link: item.url || null,
+      image: item.img || null,
+    });
+  });
+  
+  return transformed;
+};
+
+$(".custom-transformer-timeline").timeline({
+  container: '.custom-transformer-timeline',
+  apiUrl: 'api-2.json',
+  transformer: transforer
+});
+
+$(".custom-transformer-timeline").on('timeline.after.generate', function () {
+  $(this).addClass('timeline'); 
+});
+})(jQuery);
+</script>
+```
+
 ## Events
 jQuery timeline has a powerful events api that make its extensible and flexibel to be integrated with any html page or framework that has jquery installed.
 
@@ -123,7 +198,6 @@ Event | Description | Arguments
 --- | --- | --- |
 `timeline.start` | Triggered right before initialization | `{}`
 `timeline.ajax.before` | Triggered before the ajax call | `{}`
-`timeline.render.before` | Triggered before build html and right after receive data from ajax | `{}`
 `timeline.ajax.fail ` | Triggered when ajax fail and receive | `{ jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown }`
 `timeline.ajax.complete` | Triggered when ajax is complete (success or fail) | `{}`
 `timeline.before.generate` | Triggered before build html structure and before append it to DOM | `{}`
@@ -144,7 +218,7 @@ See bellow some jQuery Timeline advanced usage samples
 
 <script>
 $("[data-timeline]").on('timeline.ajax.before timeline.after.generate', function () {
-    $('.loading').toggleClass('hide');
+  $('.loading').toggleClass('hide');
 });
 </script>
 ```
@@ -154,30 +228,30 @@ jQuery Timeline applies the css class `.timeline-item` to each item of the timel
 
 ```html
 <style type="text/css">
-    .timeline-item {
-        opacity: 0;
-        animation: fadeIn .3s;
-        animation-fill-mode: forwards;
-    }
+.timeline-item {
+  opacity: 0;
+  animation: fadeIn .3s;
+  animation-fill-mode: forwards;
+}
 
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 </style>
 
 <script>
-    (function ($) {
-        $('[data-timeline]').on( 'timeline.after.generate', function ( e, response ) {
-            // delay(in seconds) before starts the animation of a item 
-            var delay = 0.1;
+(function ($) {
+  $('[data-timeline]').on( 'timeline.after.generate', function ( e, response ) {
+    // delay(in seconds) before starts the animation of a item 
+    var delay = 0.1;
 
-            $('.timeline-item').each(function () {
-                $(this).css('animation-delay', delay + 's');
-                delay += 0.1;
-            });
-        });
-    } (jQuery));
+    $('.timeline-item').each(function () {
+      $(this).css('animation-delay', delay + 's');
+      delay += 0.1;
+    });
+  });
+} (jQuery));
 </script>
 ```
 
@@ -213,7 +287,7 @@ Some frameworks like Laravel is a common practice the usage of a `CSRF-TOKEN` fo
 <script>
 $.ajaxSetup({
     headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
 </script>
@@ -229,7 +303,7 @@ Maybe could be interesting to BI team extract some timeline usage informations. 
 
 <script>
 $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
-    ga( 'send', 'event', 'timeline', 'show', $(this).attr('id'));
+  ga( 'send', 'event', 'timeline', 'show', $(this).attr('id'));
 });
 </script>
 ```
@@ -243,12 +317,12 @@ The bellow sample ilustrates the situation above but using Google TagManager.
 
 <script>
 $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
-    dataLayer.push({
-        event: 'sendToGA',
-        eventCategory: 'timeline',
-        eventAction: 'show',
-        eventLabel: $(this).attr('id')
-    });
+  dataLayer.push({
+    event: 'sendToGA',
+    eventCategory: 'timeline',
+    eventAction: 'show',
+    eventLabel: $(this).attr('id')
+  });
 });
 </script>
 ```
