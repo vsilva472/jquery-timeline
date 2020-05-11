@@ -1,0 +1,13 @@
+{
+    "name": "vsilva472/jquery-timeline",
+    "description": "A simple and customizable jquery plugin to create responsive timelines",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "vsilva472",
+            "email": "vsilva472@gmail.com"
+        }
+    ],
+    "require": {}
+}

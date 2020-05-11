@@ -1,0 +1,24 @@
+{
+  "name": "@vsilva472/jquery-timeline",
+  "version": "1.0.0",
+  "description": "A simple and customizable jquery plugin to create responsive timelines",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vsilva472/jquery-timeline.git"
+  },
+  "keywords": [
+    "jquery",
+    "plugin",
+    "timeline",
+    "jquery-timeline"
+  ],
+  "author": "Vinicius Silva",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vsilva472/jquery-timeline/issues"
+  },
+  "homepage": "https://github.com/vsilva472/jquery-timeline#readme"
+}
