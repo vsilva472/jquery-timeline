@@ -1,6 +1,6 @@
 {
   "name": "@vsilva472/jquery-timeline",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "A simple and customizable jquery plugin to create responsive timelines",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
