@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customizing Appearance | jQuery Timeline</title>
+
+    <!-- Bootstrap only for sample purposes -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../dist/jquery.timeline.min.css">
+
+    <style type="text/css">
+        /* Responsible for year label style */
+        .timeline-year-label { background: green } 
+
+        /* Responsible for timeline item title */
+        .timeline-item-title { color: gold; border-bottom: 1px dashed pink; }
+
+        /* Responsible for timeline line (center on desktop and left on mobile)*/
+        .timeline::before { background: #a101fd; }
+
+        /* Responsible for the image (if an item have one)*/
+        .timeline-item-image { border-radius: 100% }
+
+        /* Responsible for the description of an item */
+        .timeline-item-description  { color: blue; }
+
+        /* Responsible for the timeline "dot" at the end of line */
+        .timeline-end { background: #a101fd; border-radius: 100% }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div data-timeline="api.json" style="margin-top: 50px;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script src="../dist/jquery.timeline.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Analytics Sample | jQuery Timeline</title>
+
+    <!-- Bootstrap only for sample purposes -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../dist/jquery.timeline.min.css">
+    
+    <!-- simulates Google Analytics core -->
+    <script>
+        function ga () {
+            console.log('Google Analytics called with: ', arguments);
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="timeline-ga" data-timeline="api.json" style="margin-top: 50px;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script>
+        (function ($) {
+            $('#timeline-ga').on( 'timeline.after.generate', function ( e, response ) {
+                alert('Open console F12 to see that ga was called');
+                ga( 'send', 'event', 'timeline', 'show', $(this).attr('id'));
+            });
+        } (jQuery));
+    </script>
+    <script src="../dist/jquery.timeline.min.js"></script>
+</body>
+</html>

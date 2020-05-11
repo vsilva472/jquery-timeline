@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation | jQuery Timeline</title>
+
+    <!-- Bootstrap only for sample purposes -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../dist/jquery.timeline.min.css">
+
+    <style type="text/css">
+        .timeline-item {
+            opacity: 0;
+            animation: fadeIn .3s;
+            animation-fill-mode: forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div data-timeline="api.json" style="margin-top: 50px;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script>
+        (function ($) {
+            $('[data-timeline]').on( 'timeline.after.generate', function ( e, response ) {
+                // delay(in seconds) before starts the animation of a item 
+                var delay = 0.1;
+
+                $('.timeline-item').each(function () {
+                    $(this).css('animation-delay', delay + 's');
+                    delay += 0.1;
+                });
+            });
+        } (jQuery));
+    </script>
+    
+    <script src="../dist/jquery.timeline.min.js"></script>
+</body>
+</html>

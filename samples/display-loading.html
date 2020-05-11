@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display a loading sample | jQuery Timeline</title>
+
+    <!-- Bootstrap only for sample purposes -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../dist/jquery.timeline.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="loading text-center" style="margin-top: 100px;"><img src="loading.gif" /> Loading...</p>
+
+                <div id="timeline-loading" style="margin-top: 50px;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <script>
+        (function ($) {
+            $("#timeline-loading").on('timeline.after.generate', function () {
+                $('.loading').remove();
+                $(this).addClass('timeline'); // need to render central line of timeline
+            });
+
+            // simulate slow connection
+            setTimeout(function () {
+                $("#timeline-loading").timeline({
+                    apiUrl: 'api.json',
+                    container: '#timeline-loading'
+                });
+            }, 3000);
+        } (jQuery));
+        </script>
+    <script src="../src/jquery.timeline.js"></script>
+</body>
+</html>

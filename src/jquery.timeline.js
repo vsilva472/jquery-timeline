@@ -3,8 +3,8 @@
 ;(function ($, undefined) {
 
     function Plugin( element, options ) {
-        this.$container = $( element );
         this.options = $.extend( {}, $.fn.timeline.defaults, options );
+        this.options.container = $(this.options.container);
         this.resolveApiUrl().resolveRawContentOption();
         this.init();
     }
@@ -18,7 +18,7 @@
 
     Plugin.prototype.resolveApiUrl = function ()
     {
-        var dataApiUrl = this.$container.data('timeline');
+        var dataApiUrl = this.options.container.data('timeline');
         
         if (!this.options.apiUrl && !dataApiUrl) throw new Error('No api url found');
         
@@ -29,7 +29,7 @@
 
     Plugin.prototype.resolveRawContentOption = function () {
 
-        var dataAllowRawContent = this.$container.data('timeline-allow-raw-content');
+        var dataAllowRawContent = this.options.container.data('timeline-allow-raw-content');
 
         if (!this.options.allowRawContent && !dataAllowRawContent) this.options.allowRawContent = false;
 
@@ -63,7 +63,7 @@
         var self = this;
 
         Object.keys(data).forEach(function (year) {
-           self.createYearLabel(year).appendTo(self.$container);
+           self.createYearLabel(year).appendTo(self.options.container);
            
            var $wrapper = $('<div />').addClass('timeline-item-wrapper');
            
@@ -71,10 +71,10 @@
                 self.createItem(item).appendTo($wrapper);
            });
 
-           $wrapper.appendTo(self.$container);
+           $wrapper.appendTo(self.options.container);
         });
 
-        this.$container.append('<span class="timeline-end timeline-item">');
+        this.options.container.append('<span class="timeline-end timeline-item">');
 
         this.dispatch('timeline.after.generate');
     };
@@ -155,7 +155,7 @@
 
     Plugin.prototype.dispatch = function (event, data) {
 
-        this.$container.trigger(event, data);
+        this.options.container.trigger(event, data);
     };
 
     $.fn.timeline = function ( options ) {
@@ -169,7 +169,7 @@
 
     $.fn.timeline.defaults = {
         container : '[data-timeline]',
-        apiUtl: null,
+        apiUrl: null,
         allowRawContent: false
     };
 
@@ -177,5 +177,6 @@
         $($.fn.timeline.defaults.container).on('timeline.after.generate', function () {
             $(this).addClass('timeline');
         }).timeline();
+
     });
 })( jQuery, undefined );
