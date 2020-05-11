@@ -1,7 +1,7 @@
 # jQuery Timeline
 [![license](https://img.shields.io/github/license/vsilva472/jquery-timeline.svg?style=flat-square)](https://github.com/vsilva472/jquery-timeline/blob/master/LICENSE) [![Release](https://img.shields.io/github/release/vsilva472/jquery-timeline.svg?style=flat-square)](https://github.com/vsilva472/jquery-timeline/releases) [![](https://data.jsdelivr.com/v1/package/npm/@vsilva472/jquery-timeline/badge)](https://www.jsdelivr.com/package/npm/@vsilva472/jquery-timeline)  [![npm](https://img.shields.io/npm/dm/@vsilva472/jquery-timeline.svg?style=flat-square)](https://www.npmjs.com/package/@vsilva472/jquery-timeline)
 
-A dead simple jQuery plugin to create responsives timelines with only ~3kb.
+A dead simple jQuery plugin to create responsives timelines with only ~3kb. You can find some online samples of usage [here](https://vsilva472.github.io/jquery-timeline/samples/index.html).
 
 ## Content
 - [Browser Support](#browser-support)
