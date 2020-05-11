@@ -70,7 +70,7 @@ allowRawContent| bool | `false` | Tell to plugin if it should use .html() or .te
 **Note** You can setup this options via data-attribute from the container element;
 
 ```html
-<div data-timeline="https://yourapi/fetch/timline/data" data-timeline-allow-raw-content>
+<div data-timeline="https://yourapi/fetch/timeline/data" data-timeline-allow-raw-content>
 ```
 
 Data attribute options will be used only if default options are not touched.
@@ -90,7 +90,7 @@ Data attribute options will be used only if default options are not touched.
 
 <script>
 $('.my-timeline').timeline({
-    apiUrl: 'https://yourapi/fetch/timline/data',
+    apiUrl: 'https://yourapi/fetch/timeline/data',
     allowRawContent: true 
 });
 </script>
@@ -102,7 +102,7 @@ $('.my-timeline').timeline({
 
 <script>
 $('.my-timeline').timeline({
-    apiUrl: 'https://yourapi/fetch/timline/data',
+    apiUrl: 'https://yourapi/fetch/timeline/data',
 });
 </script>
 ```
@@ -111,7 +111,7 @@ The sample above is equivalent to the following configuration
 ```javascript
 $.fn.timeline.defaults = {
     container : '.my-timeline',
-    apiUrl: 'https://yourapi/fetch/timline/data',
+    apiUrl: 'https://yourapi/fetch/timeline/data',
     allowRawContent: true
 };
 ```
@@ -140,7 +140,7 @@ See bellow some jQuery Timeline advanced usage samples
 .hide { display: none; }
 </style>
 <span class="hide loading">Please wait...</span>
-<div data-timeline="https://yourapi/fetch/timline/data"></div>
+<div data-timeline="https://yourapi/fetch/timeline/data"></div>
 
 <script>
 $("[data-timeline]").on('timeline.ajax.before timeline.after.generate', function () {
@@ -150,7 +150,7 @@ $("[data-timeline]").on('timeline.ajax.before timeline.after.generate', function
 ```
 
 ### Animations
-jQuery Timeline applies the css class `.timeline-item` to each item of the timline. This open the opportunity of to do some animations on these items with jquery and/;or CSS. 
+jQuery Timeline applies the css class `.timeline-item` to each item of the timeline. This open the opportunity of to do some animations on these items with jquery and/or CSS. 
 
 ```html
 <style type="text/css">
@@ -208,7 +208,7 @@ If you want to customize the elements of the timeline you should overwrite some 
 ### Fetching from Laravel
 Some frameworks like Laravel is a common practice the usage of a `CSRF-TOKEN` for security reasons. This sample shows you how to add `X-CSRF-TOKEN` before plugin make the request
 ```html
-<div data-timeline="https://yourlaravel/fetch/timline/data"></div>
+<div data-timeline="https://yourlaravel/fetch/timeline/data"></div>
 
 <script>
 $.ajaxSetup({
@@ -224,8 +224,8 @@ Maybe could be interesting to BI team extract some timeline usage informations. 
 
 
 ```html
-<div id="xmas-timeline" data-timeline="https://yourlaravel/fetch/timline/data" class="season-timelines"></div>
-<div id="easter-timeline" data-timeline="https://yourlaravel/fetch/timline/data" class="season-timelines"></div>
+<div id="xmas-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
+<div id="easter-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
 
 <script>
 $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
@@ -238,8 +238,8 @@ $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
 The bellow sample ilustrates the situation above but using Google TagManager.
 
 ```html
-<div id="xmas-timeline" data-timeline="https://yourlaravel/fetch/timline/data" class="season-timelines"></div>
-<div id="easter-timeline" data-timeline="https://yourlaravel/fetch/timline/data" class="season-timelines"></div>
+<div id="xmas-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
+<div id="easter-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
 
 <script>
 $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
