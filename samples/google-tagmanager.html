@@ -32,6 +32,7 @@
     <script>
         (function ($) {
             $('#timeline-gtm').on( 'timeline.after.generate', function ( e, response ) {
+                alert('Open console F12 to see that dataLayer was called');
                 dataLayer.push({
                     event: 'sendToGA',
                     eventCategory: 'timeline',

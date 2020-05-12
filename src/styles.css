@@ -90,6 +90,7 @@
 .timeline-item-description {
     font-size: 18px;
     color: #333;
+    word-wrap: break-word;
 }
 
 .timeline-item-description a,

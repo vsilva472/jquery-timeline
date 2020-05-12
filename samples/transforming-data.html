@@ -23,7 +23,7 @@
     <script src="../dist/jquery.timeline.min.js"></script>
     <script>
         (function ($) {
-            const transforer = (data) => {
+            const myOwnTransformer = (data) => {
                 var transformed = {};
 
                 data.forEach(item => {
@@ -44,7 +44,7 @@
             $(".custom-transformer-timeline").timeline({
                 container: '.custom-transformer-timeline',
                 apiUrl: 'api-2.json',
-                transformer: transforer
+                transformer: myOwnTransformer
             });
             
             $(".custom-transformer-timeline").on('timeline.after.generate', function () {

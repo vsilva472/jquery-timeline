@@ -5,7 +5,7 @@ A dead simple jQuery plugin to create responsives timelines with only ~3kb. You 
 
 ## Content
 - [Browser Support](#browser-support)
-- [Instalation](#instalation)
+- [installation](#installation)
   - [Git](#git-installation)
   - [NPM](#npm-installation)
   - [Composer](#composer-installation)
@@ -14,7 +14,7 @@ A dead simple jQuery plugin to create responsives timelines with only ~3kb. You 
 - [Usage](#usage)
   - [Via data-attributes](#using-with-default-data-selectors)
   - [Via css classes](#using-with-css-class-selectors)
-  - [Mixed Selectors](#using-with-mixed-selctors)
+  - [Mixed Selectors](#using-with-mixed-selectors)
   - [Using a custom transformer](#using-a-custom-transformer)
 - [Events](#events)
 - [Advanced usage](#advanced-usage)
@@ -32,7 +32,7 @@ A dead simple jQuery plugin to create responsives timelines with only ~3kb. You 
 --- | --- | --- | --- | --- |
 IE 10+ ✔ | Last ✔ | Last ✔ | Last ✔ | Last ✔ |
 
-## Instalation
+## installation
 
 ##### Git installation
 `git clone git@github.com:vsilva472/jquery-timeline.git` (SSH)  ou  
@@ -47,7 +47,7 @@ IE 10+ ✔ | Last ✔ | Last ✔ | Last ✔ | Last ✔ |
 ##### CDN installation
 [https://www.jsdelivr.com/package/npm/@vsilva472/jquery-timeline](https://www.jsdelivr.com/package/npm/@vsilva472/jquery-timeline)  
 
-`<script src="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery.timeline.min.css"></script>`
+`<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery.timeline.min.css" />`
 
 `<script src="https://cdn.jsdelivr.net/npm/@vsilva472/jquery-timeline@1/dist/jquery.timeline.min.js"></script>`
 
@@ -69,16 +69,14 @@ Attribute | Type | Default | Description
 container | String | `'[data-timeline]'` | The HTML element to render the timeline 
 apiUrl | String | `null` | The url to fetch timeline data
 allowRawContent| bool | `false` | Tell to plugin if it should use .html() or .text() to prevent XSS
-transformer | callback | `function (data) { return data; }` | The transform to transform the data comming from ajax request
+transformer | callback | `function (data) { return data; }` | The transformer to transform the data comming from ajax request
 
 
-**Note** You can setup this options via data-attribute from the container element;
+**Note:** You can set `allowRawContent` via data-attribute from the container element just adding the attribute `data-timeline-allow-raw-content` to the element container.
 
 ```html
 <div data-timeline="https://yourapi/fetch/timeline/data" data-timeline-allow-raw-content>
 ```
-
-Data attribute options will be used only if default options are not touched.
 
 ## Usage
 ### Using with default data selectors
@@ -86,7 +84,7 @@ Data attribute options will be used only if default options are not touched.
 <div data-timeline="http://server/to/fetch/timeline/data"></div>
 ```
 
-**Nota** You should call `$('selector').timeline(options)` only if you are using jQuery timeline without `data-attributes`
+**Note** You should call `$('selector').timeline(options)` only if you are using jQuery timeline without `data-attributes`
 
 
 ### Using with css class selectors
@@ -101,7 +99,7 @@ $('.my-timeline').timeline({
 </script>
 ```
 
-### Using with mixed selctors
+### Using with mixed selectors
 ```html
 <div class="my-timeline" data-timeline-allow-raw-content></div>
 
@@ -150,17 +148,17 @@ Example:
 }
 ```
 
-But each api has your own logic and return your own format, fortunely jQuery Timeline has a method to transform your data before render the content.
-In this cases you should provide your transform witch will adapt the data to the structure described above. 
+But each api has your own logic and return your own format, fortunately jQuery Timeline has a method to transform your data before render the content.
+In this cases you should provide your own transformer witch will adapt the data to the structure described above.
 
-In samples folder you can find a sample that describes this scenario.
+Inside `/samples` folder you can find a sample that describes this scenario.
 
 ```html
 <div class="custom-transformer-timeline" style="margin-top: 50px;"></div>
 
 <script>
 (function ($) {
-const transforer = (data) => {
+const myOwnTransformer = (data) => {
   var transformed = {};
 
   data.forEach(item => {
@@ -181,7 +179,7 @@ const transforer = (data) => {
 $(".custom-transformer-timeline").timeline({
   container: '.custom-transformer-timeline',
   apiUrl: 'api-2.json',
-  transformer: transforer
+  transformer: myOwnTransformer
 });
 
 $(".custom-transformer-timeline").on('timeline.after.generate', function () {
@@ -192,16 +190,16 @@ $(".custom-transformer-timeline").on('timeline.after.generate', function () {
 ```
 
 ## Events
-jQuery timeline has a powerful events api that make its extensible and flexibel to be integrated with any html page or framework that has jquery installed.
+jQuery Timeline has a powerful events API that make it extensible and flexible to be integrated with any html page or framework that has jQuery installed.
 
 Event | Description | Arguments
 --- | --- | --- |
 `timeline.start` | Triggered right before initialization | `{}`
 `timeline.ajax.before` | Triggered before the ajax call | `{}`
 `timeline.ajax.fail ` | Triggered when ajax fail and receive | `{ jqXHR: jqXHR, textStatus: textStatus, errorThrown: errorThrown }`
-`timeline.ajax.complete` | Triggered when ajax is complete (success or fail) | `{}`
-`timeline.before.generate` | Triggered before build html structure and before append it to DOM | `{}`
-`timeline.after.generate` | Triggered after build html structure and after append it to DOM | `{}`
+`timeline.ajax.complete` | Triggered when ajax is completed (success or fail) | `{}`
+`timeline.before.generate` | Triggered before build HTML structure and before append it to DOM | `{}`
+`timeline.after.generate` | Triggered after build HTML structure and after append it to DOM | `{}`
  
  
 ## Advanced Usage
@@ -224,7 +222,7 @@ $("[data-timeline]").on('timeline.ajax.before timeline.after.generate', function
 ```
 
 ### Animations
-jQuery Timeline applies the css class `.timeline-item` to each item of the timeline. This open the opportunity of to do some animations on these items with jquery and/or CSS. 
+jQuery Timeline applies the css class `.timeline-item` to each item of the timeline. This open the opportunity of to do some animations on these items with jQuery and/or CSS. 
 
 ```html
 <style type="text/css">
@@ -280,7 +278,7 @@ If you want to customize the elements of the timeline you should overwrite some 
 ``` 
 
 ### Fetching from Laravel
-Some frameworks like Laravel is a common practice the usage of a `CSRF-TOKEN` for security reasons. This sample shows you how to add `X-CSRF-TOKEN` before plugin make the request
+In some frameworks like Laravel is a common practice the usage of a `CSRF-TOKEN` for security reasons. This sample shows you how to add `X-CSRF-TOKEN` before plugin make the request
 ```html
 <div data-timeline="https://yourlaravel/fetch/timeline/data"></div>
 
@@ -298,8 +296,8 @@ Maybe could be interesting to BI team extract some timeline usage informations. 
 
 
 ```html
-<div id="xmas-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
-<div id="easter-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
+<div id="xmas-timeline" data-timeline="https://your/api/fetch/timeline/data" class="season-timelines"></div>
+<div id="easter-timeline" data-timeline="https://your/api/fetch/timeline/data" class="season-timelines"></div>
 
 <script>
 $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
@@ -312,8 +310,8 @@ $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
 The bellow sample ilustrates the situation above but using Google TagManager.
 
 ```html
-<div id="xmas-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
-<div id="easter-timeline" data-timeline="https://yourlaravel/fetch/timeline/data" class="season-timelines"></div>
+<div id="xmas-timeline" data-timeline="https://your/api/fetch/timeline/data" class="season-timelines"></div>
+<div id="easter-timeline" data-timeline="https://your/api/fetch/timeline/data" class="season-timelines"></div>
 
 <script>
 $('.season-timelines').on( 'timeline.after.generate', function ( e, response ) {
