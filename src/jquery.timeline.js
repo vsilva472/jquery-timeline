@@ -89,7 +89,7 @@
     Plugin.prototype.createTitle = function (item) {
 
         var $title = item.link 
-            ? $('<a />').attr({href: item.link.trim(), tagert: '_blank'})
+            ? $('<a />').attr({href: item.link.trim(), target: '_blank'})
                 .addClass('timeline-item-title timeline-item').text(item.title.trim()) 
            
             : $('<div />').addClass('timeline-item-title timeline-item')
